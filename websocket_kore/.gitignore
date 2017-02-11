@@ -1,0 +1,8 @@
+*.o
+.objs
+*.so
+assets.h
+cert
+*.pem
+BUILD_CMAKE
+pkg_*

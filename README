@@ -1,0 +1,20 @@
+1. build kore
+
+https://github.com/jorisvink/kore
+
+cd websocket_kore
+../../kore/tools/build build
+
+2. build cocos app
+cd ../game-controller-test_cocos/
+mkdir build
+cd build
+cmake ..
+make
+
+3. packaging & install
+cd bin
+
+
+*. test
+https://YOUR_TARGET_IP:8888

@@ -1,0 +1,11 @@
+{
+  "id": "com.cocos.controller",
+  "version": "0.0.1",
+  "vendor": "LG Electronics",
+  "type": "native",
+  "main": "controller-test",
+  "title": "controller-test",
+  "icon": "icon.png",
+  "largeIcon": "largeIcon.png",
+  "uiRevision": 2
+}

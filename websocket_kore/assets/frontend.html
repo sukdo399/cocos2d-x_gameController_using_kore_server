@@ -1,0 +1,96 @@
+<!DOCTYPE>
+<html>
+<body>
+
+	<form action="/" onsubmit="connect(); return false;">
+	<input type="submit" value="connect">
+	</form>
+
+	<button id="a">a</button>
+	<button id="b">b</button>
+	<button id="x">x</button>
+	<button id="y">y</button>
+
+	<div id="servermessage">
+	</div>
+
+
+	<script type='text/javascript'>
+	var socket = null;
+	var state = "";
+	var sent = "";
+	var recv = "";
+
+	function message(msg) {
+		socket.send(msg);
+		sent = msg;
+		update();
+	}
+
+	function update() {
+		var cnt = document.getElementById("servermessage");
+		cnt.innerHTML = "Status: " + state + "        Recv: " + recv + "         Sent: " + sent;
+	}
+
+	function open(evt) {
+		state = "opened";
+		update();
+	}
+
+	function onmessage(evt) {
+		recv = evt.data;
+		update();
+	}
+
+	function connect() {
+		socket = new WebSocket("wss://"+document.location.host+"/connect");
+		socket.onopen = function(evt) { state = "opened"; update(); };
+		socket.onclose = function(evt) { state = "closed"; update(); };
+		socket.onmessage = function(evt) { onmessage(evt) };
+		socket.onerror = function(evt) { state = "error"; update(); };
+	}
+
+	function buttonDown(button) {
+		message(button.id);
+	}
+	function buttonUp(button) {
+		message(button.id+"_");
+	}
+
+	function mouseDownListener(e) {
+		e = e || window.event;
+		var button = e.which || e.button;
+		if (e.button == 0) { // left click
+			buttonDown(this);
+		}
+	}
+	function mouseUpListener(e) {
+		e = e || window.event;
+		var button = e.which || e.button;
+		if (e.button == 0) { // left click
+			buttonUp(this);
+		}
+	}
+
+	var a_btn = document.getElementById("a");
+	a_btn.addEventListener("mousedown", mouseDownListener);
+	a_btn.addEventListener("mouseup", mouseUpListener);
+
+	var b_btn = document.getElementById("b");
+	b_btn.addEventListener("mousedown", mouseDownListener);
+	b_btn.addEventListener("mouseup", mouseUpListener);
+
+	var x_btn = document.getElementById("x");
+	x_btn.addEventListener("mousedown", mouseDownListener);
+	x_btn.addEventListener("mouseup", mouseUpListener);
+
+	var y_btn = document.getElementById("y");
+	y_btn.addEventListener("mousedown", mouseDownListener);
+	y_btn.addEventListener("mouseup", mouseUpListener);
+
+
+
+	</script>
+
+</body>
+</html>
